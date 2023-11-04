@@ -1,4 +1,6 @@
 from django.db import models
+from rest_framework.response import Response
+from rest_framework.decorators import action
 
 
 class Category(models.Model):
@@ -12,7 +14,11 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-
+    @action(detail=True, methods=['post'])
+    def disable(self, request, pk):
+        # Nous pouvons maintenant simplement appeler la méthode disable
+        self.get_object().disable()
+        return Response()
 
 class Product(models.Model):
 
